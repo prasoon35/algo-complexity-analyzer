@@ -13,38 +13,35 @@ dataset = []
 
 print("Profiling your function...\n")
 
-# auto detect if function is fast or slow
-# run once first to check
-test_arr = [random.randint(0, 10000) for _ in range(1000)]
-start = time.perf_counter()
+# auto detect — use unique values so no early exit
+test_arr  = random.sample(range(100000), 1000)
+start     = time.perf_counter()
 mystery(test_arr)
 test_time = time.perf_counter() - start
 
-USE_TIMEIT = test_time < 0.001  # faster than 1ms → use timeit
+USE_TIMEIT = test_time < 0.0001  # stricter — only truly fast functions
 print(f"Function speed: {'FAST — using timeit' if USE_TIMEIT else 'SLOW — using perf_counter'}\n")
-
 
 INPUT_SIZES = INPUT_SIZES_FAST if USE_TIMEIT else INPUT_SIZES_SLOW
 
 for n in INPUT_SIZES:
-    arr = [random.randint(0, 10000) for _ in range(n)]
     if USE_TIMEIT:
+        arr = [random.randint(0, 10000) for _ in range(n)]
         t   = timeit.timeit(lambda: mystery(arr), number=2000)
-        avg = t / 200
+        avg = t / 2000
     else:
         times = []
         for _ in range(N_TRIALS):
-            arr = random.sample(range(n * 10), n)
+            arr = random.sample(range(n * 10), n)  # unique values, size n
             start = time.perf_counter()
             mystery(arr)
             times.append(time.perf_counter() - start)
         avg = sum(times) / N_TRIALS
-    
+
     dataset.append((n, avg))
     print(f"N={n:<6} → {avg:.8f} sec")
 
 print("\nProfiling complete.")
-
 
 
 
