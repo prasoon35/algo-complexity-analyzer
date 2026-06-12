@@ -82,7 +82,7 @@ def power_law(n, c, p):
 TARGET_N = 1_000_000
  
 print(f"\n{'=' * 70}")
-print(f"  COMPONENT 2 — Runtime Prediction at N={TARGET_N:,}")
+print(f"- Runtime Prediction at N={TARGET_N:,} -")
 print(f"{'=' * 70}")
 print(f"\n{'Algorithm':<20} {'LinearReg':>15}   {'CurveFit':>15}   {'p value':>8}")
 print("-" * 70)
