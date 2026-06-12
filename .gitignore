@@ -2,7 +2,7 @@ two_final.py
 feature_final.py
 one.py
 vi.py
-*.png
+
 
 __pycache__/
 *.pyc
